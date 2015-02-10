@@ -1,0 +1,21 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            xuyaoqiang 
+tagline:          ' '
+description:      'just records'
+url:              http://xuyaoqiang.com
+baseurl:          /
+
+paginate:         5
+
+# Custom vars
+
+github:           https://github.com/xuyaoqiang/
+email:            xuyaoqiang@gmail.com 

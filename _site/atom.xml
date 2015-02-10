@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>xuyaoqiang</title>
+ <link href="http://xuyaoqiang.com/atom.xml" rel="self"/>
+ <link href="http://xuyaoqiang.com/"/>
+ <updated>2015-02-10T18:14:10+08:00</updated>
+ <id>http://xuyaoqiang.com</id>
+ <author>
+   <name></name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>迁徙</title>
+   <link href="http://xuyaoqiang.com/2015/02/09/blog-myself-here/"/>
+   <updated>2015-02-09T00:00:00+08:00</updated>
+   <id>http://xuyaoqiang.com/2015/02/09/blog-myself-here</id>
+   <content type="html">&lt;p&gt;我打算重新开始写博客。&lt;/p&gt;
+
+&lt;p&gt;当在面临职业方向选择这个难题时，那是我还是个文青。我就想，既然我这辈子不可能靠着写中文为生，那我还是选择另外一种语言吧，于是，我就成了一个码农。&lt;/p&gt;
+
+&lt;p&gt;开始的阶段是痛苦的，因为我很难从代码中发现我期望的浪漫、矛盾和生命力，因为执行他的是机器，需要的是严谨和完整。但我是一个固执又充满好奇心的人，我开始尝试不同的语言，看过一些据说是很漂亮的代码，慢慢的，好像我看到了一些透出来的光，我开始理解一些美好的东西，一些浪漫的、自由的、无私的美好。&lt;/p&gt;
+
+&lt;p&gt;在工作这段时间里，由于各种借口，我有两年多没有认真地坐下来写写画画。我想也许现在是一个好的时间，可以让自己安静地将自己发现的一些美好能记录下来，也是对我过去一段时光的梳理,也许是工作中的一些微不足道的发现，也许是生活中的一些牢骚，也可能是一些任性。&lt;/p&gt;
+
+&lt;p&gt;最后，感谢 &lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt;、 &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;，以及&lt;a href=&quot;https://github.com/poole/hyde&quot;&gt;Hyde&lt;/a&gt;，让我们可以如此方便、自由的创建一个自己的世界。 &lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
