@@ -24,7 +24,8 @@ title: About
 * web front-end: html/css/angularjs/vue.js(学习中)
 * DB: mongodb/redis/mysql
 * ops: puppet/nagios/fabric/ansible/vagrant
-* opensource tools: celery/scrapy/twisted/beautifulsoup/gunicorn/requests/supervisor/shinken/tox/alembic/sqlalchemy/unittest …
+* opensource tools: celery/scrapy/twisted/beautifulsoup/gunicorn/
+  requests/supervisor/shinken/tox/alembic/sqlalchemy/unittest …
 * editor: vim sublime-text
 * vcs: git/svn
 

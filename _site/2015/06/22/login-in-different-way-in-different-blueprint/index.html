@@ -11,7 +11,7 @@
 
   <title>
     
-      xuyaoqiang &middot;  
+      在flask-login中同时使用不同的登录验证方式 &middot; xuyaoqiang
     
   </title>
 
@@ -44,7 +44,7 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a class="sidebar-nav-item active" href="/">Blog</a>
+      <a class="sidebar-nav-item" href="/">Blog</a>
 
       
 
@@ -75,18 +75,10 @@
 
 
     <div class="content container">
-      <div class="posts">
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2015/06/22/login-in-different-way-in-different-blueprint/">
-        在flask-login中同时使用不同的登录验证方式
-      </a>
-    </h1>
-
-    <span class="post-date">22 Jun 2015</span>
-
-    <p>flask-login 提供不同的登录验证方式，对于web环境可以使用 user_loader 的装饰器作为登录的验证函数, 它会有自动地帮你处理cookie：</p>
+      <div class="post">
+  <h1 class="post-title">在flask-login中同时使用不同的登录验证方式</h1>
+  <span class="post-date">22 Jun 2015</span>
+  <p>flask-login 提供不同的登录验证方式，对于web环境可以使用 user_loader 的装饰器作为登录的验证函数, 它会有自动地帮你处理cookie：</p>
 
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">LoginManager</span>
 <span class="n">login_manager</span> <span class="o">=</span> <span class="n">LoginManager</span><span class="p">()</span>
@@ -146,58 +138,33 @@
         <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">None</span></code></pre></div>
 
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2015/06/21/flask-login-disabled-when-testing/">
-        flask-login 在测试环境失效
-      </a>
-    </h1>
-
-    <span class="post-date">21 Jun 2015</span>
-
-    <p>今天在运行flask的集成测试的时候发现，flask-login在测试环境下会失效。找了好久之后发现，
-原来flask-login有个配置项<code>LOGIN_DISABLED</code>, 当这个配置不存在时，它的默认值取的是TESTING的值。</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="bp">self</span><span class="o">.</span><span class="n">_login_disabled</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;LOGIN_DISABLED&#39;</span><span class="p">,</span>
-                                        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;TESTING&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">))</span></code></pre></div>
-
-<p>解决方法是在执行测试的时候，在flask的配置中添加 <code>LOGIN_DISABLED = True</code>。 </p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2015/02/09/blog-myself-here/">
-        迁徙
-      </a>
-    </h1>
-
-    <span class="post-date">09 Feb 2015</span>
-
-    <p>我打算重新开始写博客。</p>
-
-<p>当在面临职业方向选择这个难题时，那是我还是个文青。我就想，既然我这辈子不可能靠着写中文为生，那我还是选择另外一种语言吧，于是，我就成了一个码农。</p>
-
-<p>开始的阶段是痛苦的，因为我很难从代码中发现我期望的浪漫、矛盾和生命力，因为执行他的是机器，需要的是严谨和完整。但我是一个固执又充满好奇心的人，我开始尝试不同的语言，看过一些据说是很漂亮的代码，慢慢的，好像我看到了一些透出来的光，我开始理解一些美好的东西，一些浪漫的、自由的、无私的美好。</p>
-
-<p>在工作这段时间里，由于各种借口，我有两年多没有认真地坐下来写写画画。我想也许现在是一个好的时间，可以让自己安静地将自己发现的一些美好能记录下来，也是对我过去一段时光的梳理,也许是工作中的一些微不足道的发现，也许是生活中的一些牢骚，也可能是一些任性。</p>
-
-<p>最后，感谢 <a href="https://github.com/">Github</a>、 <a href="http://jekyllrb.com">Jekyll</a>，以及<a href="https://github.com/poole/hyde">Hyde</a>，让我们可以如此方便、自由的创建一个自己的世界。 </p>
-
-  </div>
-  
 </div>
 
-<div class="pagination">
-  
-    <span class="pagination-item older">Older</span>
-  
-  
-    <span class="pagination-item newer">Newer</span>
-  
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/06/21/flask-login-disabled-when-testing/">
+            flask-login 在测试环境失效
+            <small>21 Jun 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/02/09/blog-myself-here/">
+            迁徙
+            <small>09 Feb 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
 </div>
+
     </div>
 
   </body>
