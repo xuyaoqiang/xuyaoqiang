@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      X-XSS-Protection引发的base标签失效问题 &middot; xuyaoqiang
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          xuyaoqiang
+        </a>
+      </h1>
+      <p class="lead">just records</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      <a class="sidebar-nav-item" href="https://github.com/xuyaoqiang/">GitHub</a>
+      <a class="sidebar-nav-item" href="mailto:xuyaoqiang@gmail.com">Email</a>
+    </nav>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">X-XSS-Protection引发的base标签失效问题</h1>
+  <span class="post-date">25 Apr 2016</span>
+  <h2>问题背景</h2>
+
+<p>运营的同学有一天反映管理后台的一个表单，提交之后，突然页面上的css和js文件都load不出来，而正常的访问url页面则一切正常。查看页面的源码后发现，之前设置的 &lt;base href=&quot;/&quot;&gt; 失效了。</p>
+
+<h2>查找过程</h2>
+
+<p>查找问题的原因，首先列举所有可能出错的环节：</p>
+
+<blockquote>
+<ol>
+<li>提交后服务器逻辑修改了页面。</li>
+<li>引入的一些js代码里可能修改了base标签。</li>
+<li>chrome的设置导致了base标签失败。</li>
+</ol>
+</blockquote>
+
+<p>在查看了服务器的代码后发现，服务端在表单提交完成后，只是做了一个重定向到当前页面的操作，并不会修改页面的代码，那么 <code>1</code> 排除。</p>
+
+<p>至于 <code>2</code> 则更加不可能了，因为<code>base</code> 标签的失效，导致页面上所有的js文件都请求到了相对地址，js文件都出现了404错误。js文件连下载都不成功，更不可能执行了。</p>
+
+<p>那文件的罪魁应该是浏览器(chrome)了。于是同样的操作，我在safari上执行了一遍，ok了！</p>
+
+<p>越是灵机一动，这种错误，也许chrome会给一些错误提示。于是点开chrome的检查后台，果然，出现了一个错误：</p>
+
+<blockquote>
+<p>The XSS Auditor refused to execute a script because 
+its source code was
+found within the request. The auditor was enabled as the server sent<br>
+neither an &#39;X-XSS-Protection&#39; nor &#39;Content-Security-Policy&#39; header.</p>
+</blockquote>
+
+<p>查阅了相关资料后发现，这是chrome防止xss跨站脚本攻击添加的安全策略，当<code>提交的request和返回的response中包含同样的js代码</code>时会触发，导致<code>base</code>标签的href没有被设置。</p>
+
+<h2>解决办法</h2>
+
+<p>既然找到原因了，那么解决办法也很简单：</p>
+
+<ol>
+<li>去掉提交的表单中的js代码。</li>
+<li>如果表单中的js代码无法去掉，则可以设置http 返回的响应header</li>
+</ol>
+
+<blockquote>
+<p>X-XSS-Protection: 0</p>
+</blockquote>
+
+<p>因为页面是需要登录的管理后台，所以disable掉这个策略不会影响后台的安全性。对于其他面向用户的站点，还是不建议使用这种方法。</p>
+
+<p>flask的后台可以这样写：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">@app.after_request
+def add_headers(response):
+    response.headers.extend({&quot;X-XSS-Protection&quot;: 0})
+    return response
+</code></pre></div>
+<h2>总结</h2>
+
+<p>有句名言说的好：排除掉所有不可能的因素，剩下的即使再不可思议，也是真实的答案！</p>
+
+<p>当程序出现问题时，我们可以列举所有可能出错的环节，然后一个个分析排除，总能找到问题的现场和原因。</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/05/09/restful-api-practice/">
+            移动端API的RESTful改造实践和思考
+            <small>09 May 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/05/02/prevew-api-based-on-gor/">
+            使用Gor实时复制线上流量，搭建服务端预发布系统
+            <small>02 May 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/07/13/search-prompt-based-redis/">
+            SearchPrompt:基于redis的搜索提示
+            <small>13 Jul 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>

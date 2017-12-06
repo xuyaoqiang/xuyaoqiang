@@ -1,1 +1,1 @@
- This is my blog based on [Hyde](https://github.com/poole/hyde) 
+ This is my blog based on [flexible-jekyll](https://github.com/artemsheludko/flexible-jekyll) 
